@@ -1,15 +1,16 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Main {
-    public static Scanner input = new Scanner(System.in);
+    public static Scanner input = new Scanner(System.in).useLocale(Locale.US);
     private static ArrayList<Student> examList = new ArrayList<>();
 
     public static void main(String[] args) {
         boolean closeProgram = false;
-        int choice = 0;
+        int choice;
 
         while (!closeProgram) {
             System.out.println("Enter your choice: ");
@@ -70,7 +71,7 @@ public class Main {
         }
     }
     public static void addStudent(){
-        // TO DO: verify if student already on the list
+        // TO DO: verify if student already on the list, verify if student number is already on the list
         System.out.print("Please insert name of student: \n" );
         String studentName = input.nextLine();
         System.out.print("Please insert student number: \n" );
@@ -82,11 +83,53 @@ public class Main {
 
     }
     public static void addStudentGrade(){
+        System.out.println("## Add student grade ##");
+        System.out.print("Please insert student number: \n");
+        int studentNumber = input.nextInt();
 
+        if (searchStudent(studentNumber)){
+            System.out.print("Please insert student grade: \n");
+            double grade = input.nextDouble();
+            // System.out.println(grade);
+            examList.get(searchStudentIndex(studentNumber)).setExamGrade(grade);
+            System.out.println("Grade added.");
+        }
+        else {
+            System.out.println("Student number is not valid.");
+        }
     }
-    public static void searchStudent(){
 
+    public static boolean searchStudent(){
+        System.out.print("Please insert student number: \n");
+        int studentNumber = input.nextInt();
+        for (Student student : examList) {
+            if (studentNumber == student.getStudentNumber()) {
+                System.out.println("Student on the list.");
+                return true;
+            }
+        }
+        return false;
     }
+    public static boolean searchStudent(int studentNumber){
+
+        for (Student student : examList) {
+            if (studentNumber == student.getStudentNumber()) {
+                System.out.println("Student on the list.");
+                return true;
+            }
+        }
+        return false;
+    }
+    public static int searchStudentIndex(int studentNumber){
+        for (int i = 0; i < examList.size() ; i++) {
+            if (studentNumber == examList.get(i).getStudentNumber()){
+                System.out.println("Student on the list.");
+                return i;
+            }
+        }
+        return -1;
+    }
+
     public static void clearStudentList(){
 
     }
