@@ -25,10 +25,13 @@ public class Student {
     }
 
     public void setExamGrade(int studentNumber,double examGrade) {
-        this.examGrade = examGrade;
+        if((examGrade >= 0) && (examGrade <= 10)){
+            this.examGrade = examGrade;
+        }
+        else {
+            System.out.println("Invalid exam grade.");
+        }
+
     }
 
-    public static void printStudentInformation (String studentName, int studentNumber, double examGrade){
-        System.out.println("Student name: "+ studentName +" - student number: " + studentNumber + " - exam grade: " + examGrade);
-    }
 }
