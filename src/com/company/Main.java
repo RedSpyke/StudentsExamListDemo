@@ -13,7 +13,7 @@ public class Main {
         int choice;
 
         while (!closeProgram) {
-            System.out.println("Enter your choice: ");
+            System.out.print("Enter your choice: ");
             choice = input.nextInt();
             input.nextLine();
             switch (choice) {
@@ -59,62 +59,76 @@ public class Main {
         System.out.println("\t 4 - To change a student grade.");
         System.out.println("\t 5 - To search for a student in the list.");
         System.out.println("\t 6 - Clear the current list.  ");
-        System.out.println("\t 7 - Calculate the average of grade for the exam. ");
+        System.out.println("\t 7 - Calculate the average grade for the exam. ");
         System.out.println("\t 8 - Print exam stats. ");
         System.out.println("\t 9 - Exit application. ");
     }
     public static void printStudentList(){
-        int numberOfStudents = examList.size();
-        for (int i = 0; i < numberOfStudents ; i++) {
-            System.out.println("Student name: "+ examList.get(i).getStudentName()+
-                    " Student number: "+ examList.get(i).getStudentNumber());
+        System.out.println("## Students on the exam list ##");
+        for (Student student : examList) {
+            System.out.println("Student name: " + student.getStudentName() +
+                    " Student number: " + student.getStudentNumber());
         }
     }
     public static void addStudent(){
-        // TO DO: verify if student already on the list, verify if student number is already on the list
-        System.out.print("Please insert name of student: \n" );
-        String studentName = input.nextLine();
-        System.out.print("Please insert student number: \n" );
-        int studentNumber = input.nextInt();
-        examList.add(new Student(studentName,studentNumber));
 
+        System.out.println("## Add student from exam list ##");
+        System.out.print("Please insert name of student: " );
+        String studentName = input.nextLine();
+        System.out.print("Please insert student number: " );
+        int studentNumber = input.nextInt();
+        if(!searchStudent(studentNumber)) {
+            examList.add(new Student(studentName, studentNumber));
+        }
     }
     public static void removeStudent(){
-
+        System.out.println("## Remove student from exam list ##");
+        System.out.print("Please insert student number: ");
+        int studentNumber = input.nextInt();
+        if (searchStudent(studentNumber)){
+            examList.remove(searchStudentIndex(studentNumber));
+            System.out.println("Student has been removed from the list. ");
+        }
+        else {
+            System.out.println("Student not on the list.");
+        }
     }
     public static void addStudentGrade(){
         System.out.println("## Add student grade ##");
-        System.out.print("Please insert student number: \n");
+        System.out.print("Please insert student number: ");
         int studentNumber = input.nextInt();
-
         if (searchStudent(studentNumber)){
-            System.out.print("Please insert student grade: \n");
+            System.out.print("Please insert student grade: ");
             double grade = input.nextDouble();
+            if (grade >= 0 && grade <=10){
+                examList.get(searchStudentIndex(studentNumber)).setExamGrade(grade);
+                System.out.println("Grade added.");
+            }
+            else {
+                System.out.println("Grade parameter invalid");
+                System.out.println("Grade not added to the student");
+            }
             // System.out.println(grade);
-            examList.get(searchStudentIndex(studentNumber)).setExamGrade(grade);
-            System.out.println("Grade added.");
         }
         else {
             System.out.println("Student number is not valid.");
         }
     }
 
-    public static boolean searchStudent(){
-        System.out.print("Please insert student number: \n");
+    public static void searchStudent(){
+        System.out.print("Please insert student number: ");
         int studentNumber = input.nextInt();
         for (Student student : examList) {
             if (studentNumber == student.getStudentNumber()) {
-                System.out.println("Student on the list.");
-                return true;
+                 System.out.println("Student on the list.");
             }
         }
-        return false;
     }
     public static boolean searchStudent(int studentNumber){
 
         for (Student student : examList) {
             if (studentNumber == student.getStudentNumber()) {
-                System.out.println("Student on the list.");
+                // System.out.println("Student on the list.");
                 return true;
             }
         }
@@ -131,11 +145,26 @@ public class Main {
     }
 
     public static void clearStudentList(){
-
+        System.out.println("The current list has been cleared");
+        examList.clear();
     }
     public static void averageGradeExam(){
-
+        int numberOfGrades = 0;
+        double examGrade;
+        double examGradeSum = 0.0;
+        double averageExamResult;
+        for (Student student : examList) {
+            examGrade = student.getExamGrade();
+            if (examGrade != 0.0) {
+                examGradeSum += examGrade;
+                System.out.println(examGrade);
+                numberOfGrades++;
+            }
+        }
+        averageExamResult = examGradeSum / numberOfGrades;
+        System.out.println(averageExamResult);
     }
+
     public static void printExamStats (){
 
     }

@@ -16,7 +16,7 @@ public class Student {
     public int getStudentNumber() {
         return studentNumber;
     }
-    public double getExamGrade(int studentNumber) {
+    public double getExamGrade() {
         return examGrade;
     }
     public void setExamGrade(double examGrade) {
