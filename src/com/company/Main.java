@@ -3,6 +3,7 @@ package com.company;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Scanner;
+// TO DO: add exceptions for wrong input data
 
 public class Main {
     public static Scanner input = new Scanner(System.in).useLocale(Locale.US);
@@ -71,14 +72,18 @@ public class Main {
         }
     }
     public static void addStudent(){
-
         System.out.println("## Add student from exam list ##");
-        System.out.print("Please insert name of student: " );
-        String studentName = input.nextLine();
         System.out.print("Please insert student number: " );
         int studentNumber = input.nextInt();
+        input.nextLine();
         if(!searchStudent(studentNumber)) {
+            System.out.print("Please insert name of student: " );
+            String studentName = input.nextLine();
             examList.add(new Student(studentName, studentNumber));
+            System.out.println("Student added to the list. ");
+        }
+        else{
+            System.out.println("Student number already in use.");
         }
     }
     public static void removeStudent(){
@@ -137,7 +142,7 @@ public class Main {
     public static int searchStudentIndex(int studentNumber){
         for (int i = 0; i < examList.size() ; i++) {
             if (studentNumber == examList.get(i).getStudentNumber()){
-                System.out.println("Student on the list.");
+                // System.out.println("Student on the list.");
                 return i;
             }
         }
@@ -148,7 +153,7 @@ public class Main {
         System.out.println("The current list has been cleared");
         examList.clear();
     }
-    public static void averageGradeExam(){
+    public static double averageGradeExam(){
         int numberOfGrades = 0;
         double examGrade;
         double examGradeSum = 0.0;
@@ -157,16 +162,22 @@ public class Main {
             examGrade = student.getExamGrade();
             if (examGrade != 0.0) {
                 examGradeSum += examGrade;
-                System.out.println(examGrade);
+                //System.out.println(examGrade);
                 numberOfGrades++;
             }
         }
         averageExamResult = examGradeSum / numberOfGrades;
-        System.out.println(averageExamResult);
+        //System.out.println(averageExamResult);
+        return averageExamResult;
     }
 
     public static void printExamStats (){
-
+        // TO DO add pass and fail %;
+        System.out.println("## Students on the exam list ##");
+        for (int i = 0; i < examList.size(); i++) {
+            System.out.println(i + " - Student name: " + examList.get(i).getStudentName() +
+                    " Student number: " + examList.get(i).getStudentNumber() + " grade => "+ examList.get(i).getExamGrade());
+        }
+        System.out.println("The average grade is: " + averageGradeExam());
     }
-
 }
