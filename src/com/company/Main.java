@@ -54,9 +54,9 @@ public class Main {
         System.out.println(" Press: ");
         System.out.println("\t 0 - To print choice options.");
         System.out.println("\t 1 - To print the student list. ");
-        System.out.println("\t 2 - To add a student grade.");
+        System.out.println("\t 2 - To add a student.");
         System.out.println("\t 3 - To remove a student on the list.");
-        System.out.println("\t 4 - To change a student grade.");
+        System.out.println("\t 4 - To add a student grade.");
         System.out.println("\t 5 - To search for a student in the list.");
         System.out.println("\t 6 - Clear the current list.  ");
         System.out.println("\t 7 - Calculate the average grade for the exam. ");
