@@ -59,11 +59,9 @@ public class Main {
                     clearStudentList();
                     break;
                 case 7:
-                    averageGradeExam();
-                case 8:
                     printExamStats();
                     break;
-                case 9:
+                case 8:
                     closeProgram = true;
                     break;
             }
@@ -78,9 +76,8 @@ public class Main {
         System.out.println("\t 4 - To add a student grade.");
         System.out.println("\t 5 - To search for a student in the list.");
         System.out.println("\t 6 - Clear the current list.  ");
-        System.out.println("\t 7 - Calculate the average grade for the exam. ");
-        System.out.println("\t 8 - Print exam stats. ");
-        System.out.println("\t 9 - Exit application. ");
+        System.out.println("\t 7 - Print exam stats. ");
+        System.out.println("\t 8 - Exit application. ");
     }
     public static void printStudentList(){
         System.out.println("## Students on the exam list ##");
