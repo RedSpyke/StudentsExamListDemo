@@ -212,7 +212,7 @@ public class Main {
 
     public static void printExamStats (){
         NumberFormat nf = NumberFormat.getNumberInstance();
-        nf.setMaximumFractionDigits(1);
+        nf.setMaximumFractionDigits(2);
         int zeroTwo = 0;
         int twoFour = 0;
         int fourSix = 0;
