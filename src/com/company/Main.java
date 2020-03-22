@@ -64,6 +64,9 @@ public class Main {
                 case 8:
                     closeProgram = true;
                     break;
+                default:
+                    System.out.println("Invalid option!");
+                    break;
             }
         }
     }
