@@ -155,7 +155,6 @@ public class Main {
             System.out.println("Student number is not valid.");
         }
     }
-
     public static void searchStudent(){
         System.out.print("Please insert student number: ");
         int studentNumber = input.nextInt();
@@ -217,38 +216,44 @@ public class Main {
         int eightTen = 0;
         double studentGrade;
         double highestGrade = 0;
-        System.out.println("## Students present in the exam ##");
-        for (int i = 0; i < examList.size(); i++) {
-            studentGrade = examList.get(i).getExamGrade();
-            System.out.println(i + 1 + " - Student name: " + examList.get(i).getStudentName() +
-                    " Student number: " + examList.get(i).getStudentNumber() + " grade => "+ studentGrade);
-            if (studentGrade > highestGrade){
-                highestGrade = studentGrade;
-            }
-            if((studentGrade > 0)&&(studentGrade <= 2)){
-                zeroTwo++;
-            }
-            if((studentGrade > 2)&&(studentGrade <= 4)){
-                twoFour++;
-            }
-            if((studentGrade > 4)&&(studentGrade <= 6)){
-                fourSix++;
-            }
-            if((studentGrade > 6)&&(studentGrade <= 8)){
-                sixEight++;
-            }
-            if((studentGrade > 8)&&(studentGrade <= 10)){
-                eightTen++;
-            }
+        if(examList.size() == 0){
+            System.out.println("No data in the list");
         }
-        System.out.println("The highest grade is: "+ nf.format(highestGrade));
-        System.out.println("The average grade is: " + nf.format(averageGradeExam()));
-        System.out.println("Number of students that have passed the exam: " + NumberStudentsPass());
-        System.out.println("Number of grades between 0 and 2 : " + zeroTwo);
-        System.out.println("Number of grades between 2 and 4 : " + twoFour);
-        System.out.println("Number of grades between 4 and 6 : " + fourSix);
-        System.out.println("Number of grades between 6 and 8 : " + sixEight);
-        System.out.println("Number of grades between 8 and 10: " + eightTen);
+        else{
+            System.out.println("## Students present in the exam ##");
+            for (int i = 0; i < examList.size(); i++) {
+                studentGrade = examList.get(i).getExamGrade();
+                System.out.println(i + 1 + " - Student name: " + examList.get(i).getStudentName() +
+                        " Student number: " + examList.get(i).getStudentNumber() + " grade => "+ studentGrade);
+                if (studentGrade > highestGrade){
+                    highestGrade = studentGrade;
+                }
+                if((studentGrade > 0)&&(studentGrade <= 2)){
+                    zeroTwo++;
+                }
+                if((studentGrade > 2)&&(studentGrade <= 4)){
+                    twoFour++;
+                }
+                if((studentGrade > 4)&&(studentGrade <= 6)){
+                    fourSix++;
+                }
+                if((studentGrade > 6)&&(studentGrade <= 8)){
+                    sixEight++;
+                }
+                if((studentGrade > 8)&&(studentGrade <= 10)){
+                    eightTen++;
+                }
+            }
+            System.out.println("The highest grade is: "+ nf.format(highestGrade));
+            System.out.println("The average grade is: " + nf.format(averageGradeExam()));
+            System.out.println("Number of students that have passed the exam: " + NumberStudentsPass());
+            System.out.println("Number of grades between 0 and 2 : " + zeroTwo);
+            System.out.println("Number of grades between 2 and 4 : " + twoFour);
+            System.out.println("Number of grades between 4 and 6 : " + fourSix);
+            System.out.println("Number of grades between 6 and 8 : " + sixEight);
+            System.out.println("Number of grades between 8 and 10: " + eightTen);
+        }
+
     }
     public static int NumberStudentsPass () {
 
