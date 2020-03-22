@@ -220,7 +220,7 @@ public class Main {
         System.out.println("## Students present in the exam ##");
         for (int i = 0; i < examList.size(); i++) {
             studentGrade = examList.get(i).getExamGrade();
-            System.out.println(i + " - Student name: " + examList.get(i).getStudentName() +
+            System.out.println(i + 1 + " - Student name: " + examList.get(i).getStudentName() +
                     " Student number: " + examList.get(i).getStudentNumber() + " grade => "+ studentGrade);
             if (studentGrade > highestGrade){
                 highestGrade = studentGrade;
