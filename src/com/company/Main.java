@@ -1,20 +1,34 @@
 package com.company;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Scanner;
-// TO DO: add exceptions for wrong input data
 
 public class Main {
     public static Scanner input = new Scanner(System.in).useLocale(Locale.US);
     private static ArrayList<Student> examList = new ArrayList<>();
+    static double minimumGradeExam = 5.5;
 
     public static void main(String[] args) {
         boolean closeProgram = false;
         int choice;
 
+        examList.add(new Student("Alex", 1234));
+        examList.add(new Student("Bogdan", 2345));
+        examList.add(new Student("Andrei", 3456));
+
+        examList.get(searchStudentIndex(1234)).setExamGrade(4.5);
+        examList.get(searchStudentIndex(2345)).setExamGrade(6.75);
+        examList.get(searchStudentIndex(3456)).setExamGrade(7.3);
+
         while (!closeProgram) {
             System.out.print("Enter your choice: ");
+            while (!input.hasNextInt()){
+                System.out.println("Wrong input data!");
+                input.next();
+                System.out.println("Enter your choice: ");
+            }
             choice = input.nextInt();
             input.nextLine();
             switch (choice) {
@@ -74,9 +88,14 @@ public class Main {
     public static void addStudent(){
         System.out.println("## Add student from exam list ##");
         System.out.print("Please insert student number: " );
+        while (!input.hasNextInt()){
+            System.out.println("Wrong input data!");
+            input.next();
+            System.out.println("Please insert student number: ");
+        }
         int studentNumber = input.nextInt();
-        input.nextLine();
         if(!searchStudent(studentNumber)) {
+            input.nextLine();
             System.out.print("Please insert name of student: " );
             String studentName = input.nextLine();
             examList.add(new Student(studentName, studentNumber));
@@ -89,6 +108,11 @@ public class Main {
     public static void removeStudent(){
         System.out.println("## Remove student from exam list ##");
         System.out.print("Please insert student number: ");
+        while (!input.hasNextInt()){
+            System.out.println("Wrong input data!");
+            input.next();
+            System.out.println("Please insert student number: ");
+        }
         int studentNumber = input.nextInt();
         if (searchStudent(studentNumber)){
             examList.remove(searchStudentIndex(studentNumber));
@@ -101,9 +125,20 @@ public class Main {
     public static void addStudentGrade(){
         System.out.println("## Add student grade ##");
         System.out.print("Please insert student number: ");
+        while (!input.hasNextInt()){
+            System.out.println("Wrong input data!");
+            input.next();
+            System.out.println("Please insert student number: ");
+        }
         int studentNumber = input.nextInt();
+
         if (searchStudent(studentNumber)){
             System.out.print("Please insert student grade: ");
+            while (!input.hasNextDouble()){
+                System.out.println("Wrong input data!");
+                input.next();
+                System.out.println("Please insert student grade: ");
+            }
             double grade = input.nextDouble();
             if (grade >= 0 && grade <=10){
                 examList.get(searchStudentIndex(studentNumber)).setExamGrade(grade);
@@ -153,7 +188,7 @@ public class Main {
         System.out.println("The current list has been cleared");
         examList.clear();
     }
-    public static double averageGradeExam(){
+    private static double averageGradeExam(){
         int numberOfGrades = 0;
         double examGrade;
         double examGradeSum = 0.0;
@@ -172,12 +207,28 @@ public class Main {
     }
 
     public static void printExamStats (){
-        // TO DO add pass and fail %;
+        NumberFormat nf = NumberFormat.getNumberInstance();
+        nf.setMaximumFractionDigits(1);
+
         System.out.println("## Students on the exam list ##");
         for (int i = 0; i < examList.size(); i++) {
             System.out.println(i + " - Student name: " + examList.get(i).getStudentName() +
                     " Student number: " + examList.get(i).getStudentNumber() + " grade => "+ examList.get(i).getExamGrade());
         }
-        System.out.println("The average grade is: " + averageGradeExam());
+        System.out.println("The average grade is: " + nf.format(averageGradeExam()));
+        System.out.println("Number of students that have passed the exam: " + NumberStudentsPass());
     }
+    public static int NumberStudentsPass () {
+
+        int studentsThatHavePassed = 0;
+        for (Student student : examList) {
+            double examGrade = student.getExamGrade();
+            if (examGrade >= minimumGradeExam) {
+                studentsThatHavePassed++;
+            }
+        }
+        return studentsThatHavePassed;
+    }
+
+
 }
